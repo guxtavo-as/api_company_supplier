@@ -5,6 +5,8 @@ import app.repository.FornecedorRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class FornecedorService {
@@ -23,20 +25,22 @@ public class FornecedorService {
     return fornecedorRepository.save(fornecedor);
   }
 
-  public List<Fornecedor> listar(String nome, String cpfCnpj) {
-    if (cpfCnpj != null) {
-      return fornecedorRepository.findByCpfCnpj(cpfCnpj)
-              .map(List::of)
-              .orElse(List.of());
-    }
-    if (nome != null){
-      return fornecedorRepository.findByNomeContainingIgnoreCase(nome);
-    }
-    return fornecedorRepository.findAll();
+  public Map<String, Object> listar() {
+    Map<String, Object> response = new HashMap<>();
+    response.put("suppliers", fornecedorRepository.findAll());
+    return response;
+  }
+
+  public Optional<Fornecedor> buscarPorCpfCnpj(String cpfCnpj) {
+    return fornecedorRepository.findByCpfCnpj(cpfCnpj);
   }
 
   public Optional<Fornecedor> buscarPorId(Long id) {
     return fornecedorRepository.findById(id);
+  }
+
+  public Optional<Fornecedor> buscarPorNome(String nome) {
+    return fornecedorRepository.findByNome(nome);
   }
 
   public Fornecedor atualizar(Long id, Fornecedor newFornecedor) {

@@ -16,6 +16,8 @@ services:
       test: ["CMD-SHELL", "pg_isready -U user -d app_db"]
       interval: 5s
       retries: 5
+    networks:
+      - shared-net
 
   app:
     build: .
@@ -31,6 +33,12 @@ services:
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: "true"
+    networks:
+      - shared-net
 
 volumes:
   postgres_data:
+
+networks:
+  shared-net:
+    external: true

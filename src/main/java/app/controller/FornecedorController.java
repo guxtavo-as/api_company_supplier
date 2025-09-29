@@ -5,6 +5,8 @@ import app.service.FornecedorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/fornecedores")
@@ -22,17 +24,40 @@ public class FornecedorController {
   }
 
   @GetMapping
-  public ResponseEntity<List<Fornecedor>> listar(
-    @RequestParam(required = false) String nome,
-    @RequestParam(required = false) String documento
-  ) {
-    return ResponseEntity.ok(fornecedorService.listar(nome, documento));
+  public ResponseEntity<Map<String, Object>> listar() {
+    return ResponseEntity.ok(fornecedorService.listar());
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Fornecedor> buscar(@PathVariable Long id) {
+  public ResponseEntity<Map<String, Object>> buscar(@PathVariable Long id) {
     return fornecedorService.buscarPorId(id)
-            .map(ResponseEntity::ok)
+            .map(fornecedor -> {
+                Map<String, Object> response = new HashMap<>();
+                response.put("supplier", fornecedor);
+                return ResponseEntity.ok(response);
+            })
+            .orElse(ResponseEntity.notFound().build());
+  }
+
+  @GetMapping("/nome/{nome}")
+  public ResponseEntity<Map<String, Object>> buscarNome(@PathVariable String nome) {
+    return fornecedorService.buscarPorNome(nome)
+            .map(fornecedor -> {
+                Map<String, Object> response = new HashMap<>();
+                response.put("supplier", fornecedor);
+                return ResponseEntity.ok(response);
+            })
+            .orElse(ResponseEntity.notFound().build());
+  }
+
+  @GetMapping("/cpf_cnpj/{cpf_cnpj}")
+  public ResponseEntity<Map<String, Object>> buscarCpfCnpj(@PathVariable String cpf_cnpj) {
+    return fornecedorService.buscarPorCpfCnpj(cpf_cnpj)
+            .map(fornecedor -> {
+                Map<String, Object> response = new HashMap<>();
+                response.put("supplier", fornecedor);
+                return ResponseEntity.ok(response);
+            })
             .orElse(ResponseEntity.notFound().build());
   }
 

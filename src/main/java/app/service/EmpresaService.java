@@ -5,6 +5,8 @@ import app.repository.EmpresaRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class EmpresaService {
@@ -17,8 +19,7 @@ public class EmpresaService {
 
   public Empresa salvar(Empresa empresa) {
     if (empresaRepository.existsByCnpj(empresa.getCnpj())) {
-      //throw new IllegalArgumentException("CNPJ já cadastrado");
-      return "CNPJ já cadastrado";
+      throw new IllegalArgumentException("CNPJ já cadastrado");
     }
 
     return empresaRepository.save(empresa);
@@ -28,8 +29,10 @@ public class EmpresaService {
     return empresaRepository.findById(id);
   }
 
-  public List<Empresa> listar() {
-    return empresaRepository.findAll();
+  public Map<String, Object> listar() {
+    Map<String, Object> response = new HashMap<>();
+    response.put("companies", empresaRepository.findAll());
+    return response;
   }
 
   public Empresa atualizar(Long id, Empresa newEmpresa) {

@@ -10,6 +10,8 @@ public interface FornecedorRepository extends JpaRepository<Fornecedor, Long> {
 
   Optional<Fornecedor> findById(Long id);
 
+  Optional<Fornecedor> findByNome(String nome);
+
   boolean existsByCpfCnpj(String cpfCnpj);
 
   List<Fornecedor> findByNomeContainingIgnoreCase(String nome);
