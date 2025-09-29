@@ -33,6 +33,12 @@ Se retornar algo semelhante ao que está escrito abaixo, tudo estará bem com su
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
 ```
 
+Antes de Rodar o build, você precisa rodar este comando para que os dois containers estejam na mesma rede.
+
+```
+    docker network create shared-net
+```
+
 Isso exigirá que você crie a imagem do contêiner do aplicativo (isso pode demorar um pouco, dependendo da velocidade da sua internet)
 
 ```
