@@ -5,7 +5,7 @@
 Comece clonando o projeto e executando alguns comandos básicos.
 
 ```
-    $ git clone git@github.com:outbound-marketing/reev-api.git
+    $ git clone git@github.com:guxtavo-as/api_company_supplier.git
 ```
 
 ### Docker
