@@ -41,7 +41,7 @@ Isso exigirá que você crie a imagem do contêiner do aplicativo (isso pode dem
 
 Com isso, acesse http://localhost:4000/ no caso de Linux ou http://<ip>:4000/ sendo o IP da VM, e então você estará com o aplicativo em execução no Docker
 
-Instalação complet!a
+Instalação completa!
 
 ---
 
